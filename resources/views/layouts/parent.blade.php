@@ -43,6 +43,14 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <form method="post" action="{{route('logout')}}">
+            @csrf
+            
+            {{-- <a  class="nav-link"></a> --}}
+            <button  class="btn btn-danger " type="submit"> {{Auth::check() == 1 ? "logout" : "login"}}</button>
+        </form>
+      </li>
     </ul>
 
     <!-- SEARCH FORM -->
@@ -265,7 +273,7 @@
         <div class="row">
      <div class="col-12">
         @yield('content')
-        
+
      </div>
           <!-- ./col -->
         </div>

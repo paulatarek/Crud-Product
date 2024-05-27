@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CrudController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.parent');
-})->name('home');
 
-Route::resource('crud', CrudController::class);
+
+
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('/', function () {
+        return view('layouts.parent');
+    })->name('home')->middleware('admin');
+    Route::get('/login',[LoginController::class,'index'])->name('login');
+    Route::post('/login_data',[LoginController::class,'Data_Login'])->name('Data_Login');
+    Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+    Route::resource('crud', CrudController::class)->middleware('admin');
+});
